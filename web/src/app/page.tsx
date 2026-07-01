@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { api } from "@/lib/api";
 import CategoryTreeBrowse from "@/components/CategoryTreeBrowse";
 import SearchBar from "@/components/SearchBar";
@@ -18,7 +19,9 @@ export default async function HomePage({
         <h1 className="sr-only">Tarifhane</h1>
         <SearchBar />
       </div>
-      <CategoryTreeBrowse tree={tree} initialSlug={cat} />
+      <Suspense fallback={null}>
+        <CategoryTreeBrowse tree={tree} initialSlug={cat} />
+      </Suspense>
     </main>
   );
 }

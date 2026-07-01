@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { CategoryNode } from "@tarifhane/shared";
 import {
   findCategoryPath,
@@ -72,17 +73,44 @@ export default function CategoryTreeBrowse({
   initialSlug?: string;
 }) {
   const [focusPath, setFocusPath] = useState<number[]>(() => pathIdsFromSlug(tree, initialSlug));
+  const searchParams = useSearchParams();
+  const catSlug = searchParams.get("cat") ?? undefined;
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (!hash.startsWith("#cat-")) return;
-    const slug = hash.slice("#cat-".length);
-    const nextPath = pathIdsFromSlug(tree, slug);
-    if (nextPath.length > 0) {
-      setFocusPath(nextPath);
-      document.getElementById(`cat-${slug}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    function syncFromLocation() {
+      const hash = window.location.hash;
+      if (hash.startsWith("#cat-")) {
+        const slug = hash.slice("#cat-".length);
+        const nextPath = pathIdsFromSlug(tree, slug);
+        if (nextPath.length > 0) {
+          setFocusPath(nextPath);
+          document.getElementById(`cat-${slug}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return;
+      }
+
+      if (catSlug) {
+        setFocusPath(pathIdsFromSlug(tree, catSlug) ?? []);
+        return;
+      }
+
+      setFocusPath([]);
     }
-  }, [tree]);
+
+    function onHomeReset() {
+      setFocusPath([]);
+    }
+
+    syncFromLocation();
+    window.addEventListener("hashchange", syncFromLocation);
+    window.addEventListener("popstate", syncFromLocation);
+    window.addEventListener("tarifhane:home-reset", onHomeReset);
+    return () => {
+      window.removeEventListener("hashchange", syncFromLocation);
+      window.removeEventListener("popstate", syncFromLocation);
+      window.removeEventListener("tarifhane:home-reset", onHomeReset);
+    };
+  }, [tree, catSlug]);
 
   const focusNode = useMemo(
     () => (focusPath.length > 0 ? getNodeAtPath(tree, focusPath) : null),
