@@ -279,16 +279,7 @@ main {
 /* Focused node - prominent */
 .tree-viz__focus-block {
   position: relative;
-  padding-left: 6px;
-}
-
-.tree-viz__focus-connector {
-  position: absolute;
-  left: 11px;
-  top: -6px;
-  bottom: 16px;
-  width: 2.5px;
-  background: var(--tree-line);
+  padding-left: 0;
 }
 
 .tree-viz__focus-node {

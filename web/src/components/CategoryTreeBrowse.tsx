@@ -132,7 +132,6 @@ export default function CategoryTreeBrowse({
 
           {focusNode ? (
             <div className="tree-viz__focus-block">
-              <div className="tree-viz__focus-connector" aria-hidden="true" />
               <div className="tree-viz__focus-node" aria-current="true">
                 <span className="tree-viz__focus-dot" aria-hidden="true" />
                 <span className="tree-viz__focus-label">{focusNode.name}</span>
