@@ -14,7 +14,6 @@ export default async function HomePage({
   return (
     <main className="container container--wide">
       <h1 className="page-title">Tarifhane</h1>
-      <p className="page-lead">Türkçe yemek tariflerini kategori kategori keşfedin.</p>
       <CategoryTreeBrowse tree={tree} initialSlug={cat} />
     </main>
   );
