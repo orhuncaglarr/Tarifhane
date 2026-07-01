@@ -5,11 +5,6 @@ export function subtreeRecipeCount(node: CategoryNode): number {
   return node.recipes.length + childCount;
 }
 
-export function treemapWeight(node: CategoryNode): number {
-  const count = subtreeRecipeCount(node);
-  return count > 0 ? count : 1;
-}
-
 export function findCategoryPath(
   nodes: CategoryNode[],
   slug: string,
@@ -35,10 +30,4 @@ export function getNodeAtPath(tree: CategoryNode[], pathIds: number[]): Category
   }
 
   return current;
-}
-
-export function getTreemapNodes(tree: CategoryNode[], pathIds: number[]): CategoryNode[] {
-  if (pathIds.length === 0) return tree;
-  const current = getNodeAtPath(tree, pathIds);
-  return current?.children ?? [];
 }

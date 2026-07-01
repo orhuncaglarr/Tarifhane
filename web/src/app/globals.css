@@ -194,112 +194,221 @@ main {
   font-weight: 600;
 }
 
-/* Category browse - treemap on the left, recipes on the right */
+/* Category browse - tree visualization on the left, recipes on the right */
 .browse-layout {
   display: grid;
-  grid-template-columns: minmax(280px, 380px) 1fr;
+  grid-template-columns: minmax(280px, 340px) 1fr;
   gap: 24px;
   align-items: start;
 }
 
-.treemap-panel {
+.tree-viz-panel {
   position: sticky;
   top: 84px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 16px 14px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
 }
 
-.treemap-breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px;
-  margin-bottom: 12px;
-  font-size: 0.82rem;
-}
-
-.treemap-crumb {
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font: inherit;
-}
-
-.treemap-crumb:hover {
-  color: var(--accent);
-  background: var(--bg);
-}
-
-.treemap-crumb-sep {
-  color: var(--border);
-  margin: 0 2px;
-}
-
-.treemap-canvas {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
-  background: var(--bg);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.treemap-empty {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-  padding: 16px;
-  text-align: center;
-}
-
-.treemap-cell {
-  position: absolute;
-  border: 2px solid var(--surface);
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
+.tree-viz {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  padding: 8px;
-  text-align: left;
-  overflow: hidden;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  gap: 4px;
 }
 
-.treemap-cell:hover {
-  transform: scale(1.02);
-  z-index: 1;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-}
-
-.treemap-cell--selected {
-  outline: 3px solid var(--text);
-  outline-offset: -3px;
-  z-index: 2;
-}
-
-.treemap-cell__name {
-  font-weight: 700;
+.tree-viz__hint {
+  color: var(--muted);
   font-size: 0.82rem;
-  line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  margin-bottom: 8px;
 }
 
-.treemap-cell__count {
+/* Minimized ancestor chain above the focused node */
+.tree-viz__ancestors {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.tree-viz__ancestor-root,
+.tree-viz__ancestor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding: 2px 0;
+  font: inherit;
+  color: var(--muted);
+}
+
+.tree-viz__ancestor-root {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 0;
+}
+
+.tree-viz__ancestor {
   font-size: 0.72rem;
-  opacity: 0.9;
-  margin-top: 2px;
+  opacity: 0.75;
+  max-width: 100%;
+}
+
+.tree-viz__ancestor:hover,
+.tree-viz__ancestor-root:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.tree-viz__ancestor-line {
+  width: 10px;
+  height: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.tree-viz__ancestor-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Focused node - prominent */
+.tree-viz__focus-block {
+  position: relative;
+  padding-left: 4px;
+}
+
+.tree-viz__focus-connector {
+  position: absolute;
+  left: 11px;
+  top: -4px;
+  bottom: 12px;
+  width: 1px;
+  background: var(--border);
+}
+
+.tree-viz__focus-node {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.tree-viz__focus-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.tree-viz__focus-label {
+  line-height: 1.2;
+}
+
+/* Tree branches with connector lines */
+.tree-viz__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  position: relative;
+}
+
+.tree-viz__list::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 12px;
+  width: 1px;
+  background: var(--border);
+}
+
+.tree-viz__item {
+  position: relative;
+  padding-left: 14px;
+}
+
+.tree-viz__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  width: 14px;
+  height: 1px;
+  background: var(--border);
+}
+
+.tree-viz__item--last::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 17px;
+  bottom: 0;
+  width: 3px;
+  background: var(--surface);
+}
+
+.tree-viz__node {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding: 8px 10px;
+  margin: 2px 0;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.tree-viz__node:hover {
+  background: var(--bg);
+  color: var(--accent);
+}
+
+.tree-viz__node-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.tree-viz__node-label {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.tree-viz__node-count {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.tree-viz__node:hover .tree-viz__node-count {
+  color: var(--accent);
 }
 
 .browse-content {
@@ -404,8 +513,9 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .treemap-panel {
+  .tree-viz-panel {
     position: static;
+    max-height: none;
   }
 }
 
