@@ -258,7 +258,7 @@ main {
   text-align: left;
   padding: 6px 0;
   font: inherit;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--text) 42%, var(--muted));
   font-size: 0.95rem;
   font-weight: 600;
 }
