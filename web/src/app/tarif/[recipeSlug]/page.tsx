@@ -5,6 +5,7 @@ import type { CategoryNode } from "@tarifhane/shared";
 import { api, ApiError } from "@/lib/api";
 import LikeButton from "@/components/LikeButton";
 import FavoriteButton from "@/components/FavoriteButton";
+import IngredientList from "@/components/IngredientList";
 import AdSlot from "@/components/AdSlot";
 import { getYoutubeEmbedUrl } from "@/lib/youtube";
 
@@ -61,34 +62,21 @@ export default async function RecipePage({
       </p>
 
       <div className="recipe-header">
-        <h1 className="page-title">{recipe.title}</h1>
+        <div className="recipe-header__row">
+          <h1 className="page-title">{recipe.title}</h1>
+          <div className="recipe-actions">
+            <LikeButton
+              recipeId={recipe.id}
+              initialLiked={recipe.is_liked_by_me}
+              initialCount={recipe.like_count}
+            />
+            <FavoriteButton recipeId={recipe.id} initialFavorited={recipe.is_favorited_by_me} />
+          </div>
+        </div>
         {recipe.description && <p>{recipe.description}</p>}
       </div>
 
-      <div className="recipe-actions">
-        <LikeButton
-          recipeId={recipe.id}
-          initialLiked={recipe.is_liked_by_me}
-          initialCount={recipe.like_count}
-        />
-        <FavoriteButton recipeId={recipe.id} initialFavorited={recipe.is_favorited_by_me} />
-      </div>
-
-      {recipe.ingredients.length > 0 && (
-        <section className="recipe-section">
-          <h2>Malzemeler</h2>
-          <ul>
-            {recipe.ingredients.map((ingredient, i) => (
-              <li key={i}>
-                {[ingredient.amount, ingredient.unit, ingredient.name]
-                  .filter(Boolean)
-                  .join(" ")}
-                {ingredient.note ? ` (${ingredient.note})` : ""}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {recipe.ingredients.length > 0 && <IngredientList ingredients={recipe.ingredients} />}
 
       {recipe.instructions.length > 0 && (
         <section className="recipe-section">

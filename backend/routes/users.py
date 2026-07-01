@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from config import MOCK_USER_ID
 from database import get_db
@@ -32,6 +32,7 @@ def get_my_recipes(db: Session = Depends(get_db)):
     user = _me(db)
     recipes = (
         db.query(models.Recipe)
+        .options(joinedload(models.Recipe.created_by))
         .filter(models.Recipe.created_by_user_id == user.id)
         .order_by(models.Recipe.created_at.desc())
         .all()
@@ -44,6 +45,7 @@ def get_my_likes(db: Session = Depends(get_db)):
     user = _me(db)
     recipes = (
         db.query(models.Recipe)
+        .options(joinedload(models.Recipe.created_by))
         .join(models.Like, models.Like.recipe_id == models.Recipe.id)
         .filter(models.Like.user_id == user.id)
         .order_by(models.Like.created_at.desc())
@@ -57,6 +59,7 @@ def get_my_favorites(db: Session = Depends(get_db)):
     user = _me(db)
     recipes = (
         db.query(models.Recipe)
+        .options(joinedload(models.Recipe.created_by))
         .join(models.Favorite, models.Favorite.recipe_id == models.Recipe.id)
         .filter(models.Favorite.user_id == user.id)
         .order_by(models.Favorite.created_at.desc())

@@ -24,6 +24,7 @@ export interface RecipeListItem {
   title: string;
   description: string;
   like_count: number;
+  author_name: string;
 }
 
 // Self-referential taxonomy node - a category can nest to any depth

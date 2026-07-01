@@ -15,6 +15,7 @@ export default function RecipeGrid({ recipes }: { recipes: RecipeListItem[] }) {
       <Link key={recipe.id} href={`/tarif/${recipe.slug}`} className="card">
         <h3>{recipe.title}</h3>
         {recipe.description && <p>{recipe.description}</p>}
+        <span className="card__author">{recipe.author_name}</span>
         <span className="like-badge">♥ {recipe.like_count}</span>
       </Link>
     );

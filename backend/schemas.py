@@ -31,6 +31,7 @@ class RecipeListItem(BaseModel):
     title: str
     description: str
     like_count: int
+    author_name: str
 
 
 # --- Category tree (self-referential, arbitrary depth) ---
