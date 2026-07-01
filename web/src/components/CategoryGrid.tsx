@@ -8,7 +8,7 @@ export default function CategoryGrid({ categories }: { categories: Category[] })
   return (
     <div className="grid">
       {categories.map((category) => (
-        <a key={category.id} href={`/#cat-${category.slug}`} className="card">
+        <a key={category.id} href={`/?cat=${category.slug}#cat-${category.slug}`} className="card">
           <h3>{category.name}</h3>
         </a>
       ))}

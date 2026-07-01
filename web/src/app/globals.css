@@ -54,6 +54,10 @@ h1, h2, h3 {
   padding: 0 20px;
 }
 
+.container--wide {
+  max-width: 1180px;
+}
+
 /* Header */
 .site-header {
   border-bottom: 1px solid var(--border);
@@ -134,6 +138,11 @@ main {
   margin-bottom: 8px;
 }
 
+.page-lead {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
 .breadcrumb {
   color: var(--muted);
   font-size: 0.9rem;
@@ -185,87 +194,219 @@ main {
   font-weight: 600;
 }
 
-/* Category tree - single-page cascading browse (details/summary, no JS needed) */
-.tree {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 12px;
+/* Category browse - treemap on the left, recipes on the right */
+.browse-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 24px;
+  align-items: start;
 }
 
-.tree-branch {
-  /* offsets the sticky header when jumping to /#cat-slug from search results */
+.treemap-panel {
+  position: sticky;
+  top: 84px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.treemap-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 12px;
+  font-size: 0.82rem;
+}
+
+.treemap-crumb {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.treemap-crumb:hover {
+  color: var(--accent);
+  background: var(--bg);
+}
+
+.treemap-crumb-sep {
+  color: var(--border);
+  margin: 0 2px;
+}
+
+.treemap-canvas {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.treemap-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 16px;
+  text-align: center;
+}
+
+.treemap-cell {
+  position: absolute;
+  border: 2px solid var(--surface);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 8px;
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.treemap-cell:hover {
+  transform: scale(1.02);
+  z-index: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.treemap-cell--selected {
+  outline: 3px solid var(--text);
+  outline-offset: -3px;
+  z-index: 2;
+}
+
+.treemap-cell__name {
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.treemap-cell__count {
+  font-size: 0.72rem;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+.browse-content {
+  min-height: 360px;
   scroll-margin-top: 84px;
 }
 
-.tree .tree {
-  padding-left: 22px;
-  margin-top: 6px;
-  margin-left: 8px;
-  border-left: 1px solid var(--border);
+.browse-intro h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
 }
 
-.tree-node {
-  position: relative;
-  padding: 2px 0;
+.browse-intro p {
+  color: var(--muted);
 }
 
-.tree-branch > summary {
-  cursor: pointer;
-  list-style: none;
-  font-weight: 600;
-  padding: 8px 10px;
-  border-radius: 8px;
+.browse-content__header {
+  margin-bottom: 16px;
 }
 
-.tree-branch > summary::-webkit-details-marker {
-  display: none;
+.browse-content__title {
+  font-size: 1.5rem;
+  font-weight: 800;
 }
 
-.tree-branch > summary::before {
-  content: "▸";
-  display: inline-block;
-  margin-right: 8px;
-  color: var(--accent);
-  transition: transform 0.15s ease;
-}
-
-.tree-branch[open] > summary::before {
-  transform: rotate(90deg);
-}
-
-.tree-branch > summary:hover {
-  background: var(--surface);
-}
-
-.tree-children {
-  padding: 4px 0 4px 8px;
-}
-
-.tree-recipes {
+.browse-content__meta {
+  color: var(--muted);
+  font-size: 0.9rem;
   margin-top: 4px;
 }
 
-.tree-recipe {
+.browse-subcats {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.browse-subcat {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
-.tree-recipe:hover {
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
   background: var(--surface);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
 }
 
-.tree-recipe a:hover {
+.browse-subcat span {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.browse-subcat:hover {
+  border-color: var(--accent);
   color: var(--accent);
 }
 
-.tree-label--empty {
-  display: inline-block;
-  padding: 8px 10px;
+.browse-recipes {
+  list-style: none;
+}
+
+.browse-recipe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.browse-recipe a {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.browse-recipe__title {
+  font-weight: 700;
+}
+
+.browse-recipe__desc {
   color: var(--muted);
+  font-size: 0.88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browse-recipe a:hover .browse-recipe__title {
+  color: var(--accent);
+}
+
+@media (max-width: 820px) {
+  .browse-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .treemap-panel {
+    position: static;
+  }
 }
 
 /* Avatar circle (header profile link) */
