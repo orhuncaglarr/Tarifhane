@@ -1,0 +1,8 @@
+{
+  "name": "tarifhane",
+  "private": true,
+  "workspaces": [
+    "web",
+    "shared"
+  ]
+}
