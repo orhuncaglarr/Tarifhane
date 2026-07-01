@@ -149,14 +149,6 @@ export default function CategoryTreeBrowse({
 
       {focusNode && (
         <section className="browse-content" id={`cat-${focusNode.slug}`}>
-          <header className="browse-content__header">
-            <h2 className="browse-content__title">{focusNode.name}</h2>
-            <p className="browse-content__meta">
-              {focusNode.children.length > 0 && `${focusNode.children.length} alt kategori · `}
-              {subtreeRecipeCount(focusNode)} tarif
-            </p>
-          </header>
-
           {focusNode.recipes.length > 0 ? (
             <ul className="browse-recipes">
               {focusNode.recipes.map((recipe) => (
