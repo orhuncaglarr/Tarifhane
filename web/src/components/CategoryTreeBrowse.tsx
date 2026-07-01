@@ -141,51 +141,43 @@ export default function CategoryTreeBrowse({
             </div>
           ) : (
             <div className="tree-viz__root-block">
-              <p className="tree-viz__hint">Bir kategoriye tıklayın</p>
               <TreeBranchList nodes={branchNodes} onFocus={focusOn} />
             </div>
           )}
         </div>
       </aside>
 
-      <section className="browse-content" id={focusNode ? `cat-${focusNode.slug}` : undefined}>
-        {!focusNode ? (
-          <div className="browse-intro">
-            <h2>Kategori seçin</h2>
-            <p>Soldaki ağaçtan bir kategori seçerek tariflere ulaşın.</p>
-          </div>
-        ) : (
-          <>
-            <header className="browse-content__header">
-              <h2 className="browse-content__title">{focusNode.name}</h2>
-              <p className="browse-content__meta">
-                {focusNode.children.length > 0 && `${focusNode.children.length} alt kategori · `}
-                {subtreeRecipeCount(focusNode)} tarif
-              </p>
-            </header>
+      {focusNode && (
+        <section className="browse-content" id={`cat-${focusNode.slug}`}>
+          <header className="browse-content__header">
+            <h2 className="browse-content__title">{focusNode.name}</h2>
+            <p className="browse-content__meta">
+              {focusNode.children.length > 0 && `${focusNode.children.length} alt kategori · `}
+              {subtreeRecipeCount(focusNode)} tarif
+            </p>
+          </header>
 
-            {focusNode.recipes.length > 0 ? (
-              <ul className="browse-recipes">
-                {focusNode.recipes.map((recipe) => (
-                  <li key={recipe.id} className="browse-recipe">
-                    <Link href={`/tarif/${recipe.slug}`}>
-                      <span className="browse-recipe__title">{recipe.title}</span>
-                      {recipe.description && (
-                        <span className="browse-recipe__desc">{recipe.description}</span>
-                      )}
-                    </Link>
-                    <span className="like-badge">♥ {recipe.like_count}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              focusNode.children.length === 0 && (
-                <p className="empty-state">Bu kategoride henüz tarif yok.</p>
-              )
-            )}
-          </>
-        )}
-      </section>
+          {focusNode.recipes.length > 0 ? (
+            <ul className="browse-recipes">
+              {focusNode.recipes.map((recipe) => (
+                <li key={recipe.id} className="browse-recipe">
+                  <Link href={`/tarif/${recipe.slug}`}>
+                    <span className="browse-recipe__title">{recipe.title}</span>
+                    {recipe.description && (
+                      <span className="browse-recipe__desc">{recipe.description}</span>
+                    )}
+                  </Link>
+                  <span className="like-badge">♥ {recipe.like_count}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            focusNode.children.length === 0 && (
+              <p className="empty-state">Bu kategoride henüz tarif yok.</p>
+            )
+          )}
+        </section>
+      )}
     </div>
   );
 }

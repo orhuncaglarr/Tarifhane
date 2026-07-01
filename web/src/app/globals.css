@@ -202,6 +202,10 @@ main {
   align-items: start;
 }
 
+.browse-layout:not(:has(.browse-content)) {
+  grid-template-columns: minmax(280px, 340px);
+}
+
 .tree-viz-panel {
   position: sticky;
   top: 84px;
@@ -217,12 +221,6 @@ main {
   display: flex;
   flex-direction: column;
   gap: 4px;
-}
-
-.tree-viz__hint {
-  color: var(--muted);
-  font-size: 0.82rem;
-  margin-bottom: 8px;
 }
 
 /* Minimized ancestor chain above the focused node */
@@ -414,15 +412,6 @@ main {
 .browse-content {
   min-height: 360px;
   scroll-margin-top: 84px;
-}
-
-.browse-intro h2 {
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-}
-
-.browse-intro p {
-  color: var(--muted);
 }
 
 .browse-content__header {
