@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from database import get_db
 import models
@@ -7,6 +7,14 @@ import schemas
 from turkish_sort import turkish_sort_key
 
 router = APIRouter(prefix="/categories", tags=["categories"])
+
+
+def _load_recipes(db: Session) -> list[models.Recipe]:
+    return (
+        db.query(models.Recipe)
+        .options(joinedload(models.Recipe.created_by))
+        .all()
+    )
 
 
 def _group_recipes_by_category(recipes: list[models.Recipe]) -> dict[int, list[models.Recipe]]:
@@ -49,7 +57,7 @@ def list_categories(db: Session = Depends(get_db)):
 @router.get("/tree", response_model=list[schemas.CategoryNode])
 def get_category_tree(db: Session = Depends(get_db)):
     all_categories = db.query(models.Category).all()
-    all_recipes = db.query(models.Recipe).all()
+    all_recipes = _load_recipes(db)
     recipes_by_category = _group_recipes_by_category(all_recipes)
     return _build_tree(all_categories, recipes_by_category, parent_id=None)
 
@@ -61,7 +69,7 @@ def get_category(slug: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Kategori bulunamadı")
 
     all_categories = db.query(models.Category).all()
-    all_recipes = db.query(models.Recipe).all()
+    all_recipes = _load_recipes(db)
     recipes_by_category = _group_recipes_by_category(all_recipes)
     by_id = {c.id: c for c in all_categories}
 

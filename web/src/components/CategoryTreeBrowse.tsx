@@ -166,6 +166,7 @@ export default function CategoryTreeBrowse({
                     {recipe.description && (
                       <span className="browse-recipe__desc">{recipe.description}</span>
                     )}
+                    <span className="browse-recipe__author">{recipe.author_name}</span>
                   </Link>
                   <span className="like-badge">♥ {recipe.like_count}</span>
                 </li>

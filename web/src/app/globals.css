@@ -230,6 +230,14 @@ main {
   font-size: 0.9rem;
 }
 
+.card__author {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
+  margin-top: 4px;
+}
+
 .card .like-badge {
   display: inline-flex;
   align-items: center;
@@ -566,6 +574,12 @@ main {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.browse-recipe__author {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-style: italic;
 }
 
 .browse-recipe a:hover .browse-recipe__title {

@@ -83,6 +83,10 @@ class Recipe(Base):
     likes = relationship("Like", back_populates="recipe", cascade="all, delete-orphan")
     favorites = relationship("Favorite", back_populates="recipe", cascade="all, delete-orphan")
 
+    @property
+    def author_name(self) -> str:
+        return self.created_by.display_name if self.created_by else ""
+
 
 class Like(Base):
     __tablename__ = "likes"

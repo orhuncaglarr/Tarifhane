@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Query
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from database import get_db
 import models
@@ -19,7 +19,11 @@ def search(q: str = Query(..., min_length=1), db: Session = Depends(get_db)):
     # planned SQLite -> Postgres swap too.
     needle = turkish_casefold(q)
 
-    all_recipes = db.query(models.Recipe).all()
+    all_recipes = (
+        db.query(models.Recipe)
+        .options(joinedload(models.Recipe.created_by))
+        .all()
+    )
     all_categories = db.query(models.Category).all()
 
     recipes = [r for r in all_recipes if needle in turkish_casefold(r.title)][:50]
