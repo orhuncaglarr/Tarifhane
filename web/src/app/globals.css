@@ -1,16 +1,17 @@
 :root {
-  /* Anadolu palette - Turkish cuisine inspired: pomegranate (nar),
-     saffron (safran), pistachio (Antep fıstığı) on warm ivory paper. */
-  --bg: #f6f2ea;
-  --surface: #fffdf8;
-  --text: #241a1a;
-  --muted: #8a7b6f;
-  --accent: #9e1b32;
-  --accent-dark: #7c1526;
-  --border: #e8dcc9;
-  --tree-line: #5f8a52;
-  --like: #9e1b32;
-  --favorite: #d29429;
+  /* Codex palette — the gravitas of a complete archive.
+     Vellum folios, iron-gall ink, oxford binding, rubrication,
+     illumination gold. Not cuisine — scholarship, permanence, scope. */
+  --bg: #ece7dc;
+  --surface: #f6f3ec;
+  --text: #18150f;
+  --muted: #5c5549;
+  --accent: #1a2f4a;
+  --accent-dark: #0f1c2e;
+  --border: #cfc4b0;
+  --tree-line: #4a5568;
+  --like: #6b2838;
+  --favorite: #8a6f2d;
   --radius: 12px;
 }
 
@@ -310,7 +311,7 @@ main {
   background: transparent;
   cursor: pointer;
   text-align: left;
-  padding: 6px 14px 6px 0;
+  padding: 6px 0 6px 12px;
   font: inherit;
   color: color-mix(in srgb, var(--text) 32%, var(--muted));
   font-size: 0.88rem;
