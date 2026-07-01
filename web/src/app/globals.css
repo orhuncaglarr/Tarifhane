@@ -276,7 +276,21 @@ main {
 
 /* Minimized ancestor chain above the focused node */
 .tree-viz__ancestors {
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.tree-viz__focus-branch {
+  position: relative;
+}
+
+.tree-viz__focus-branch::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2.5px;
+  background: var(--tree-line);
 }
 
 .tree-viz__ancestor-root {
@@ -303,33 +317,20 @@ main {
   position: relative;
 }
 
-.tree-viz__ancestor-list::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2.5px;
-  background: var(--tree-line);
-}
-
 .tree-viz__ancestor-item {
   position: relative;
-  padding-left: 0;
+  padding-left: 80px;
 }
 
 .tree-viz__ancestor-item::before {
-  display: none;
-}
-
-.tree-viz__ancestor-item--last::after {
   content: "";
   position: absolute;
-  left: -1px;
-  top: calc(50% + 2px);
-  bottom: 0;
-  width: 4px;
-  background: var(--bg);
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 69px;
+  height: 2.5px;
+  background: var(--tree-line);
 }
 
 .tree-viz__ancestor {
@@ -339,7 +340,7 @@ main {
   background: transparent;
   cursor: pointer;
   text-align: left;
-  padding: 6px 0 6px 12px;
+  padding: 6px 14px 6px 0;
   font: inherit;
   color: color-mix(in srgb, var(--text) 32%, var(--muted));
   font-size: 0.88rem;
@@ -362,12 +363,17 @@ main {
   padding-left: 0;
 }
 
+.tree-viz__focus-branch .tree-viz__list::before {
+  display: none;
+}
+
 .tree-viz__focus-node {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 14px 18px;
-  margin-bottom: 12px;
+  margin: 4px 0 12px 80px;
   background: var(--accent);
   color: #fff;
   border-radius: 10px;
@@ -375,6 +381,18 @@ main {
   font-weight: 700;
   font-size: 1.35rem;
   letter-spacing: 0.02em;
+  z-index: 1;
+}
+
+.tree-viz__focus-node::before {
+  content: "";
+  position: absolute;
+  left: -69px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 69px;
+  height: 2.5px;
+  background: var(--tree-line);
 }
 
 .tree-viz__focus-dot {
