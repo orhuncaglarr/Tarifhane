@@ -639,10 +639,29 @@ main {
   margin-bottom: 24px;
 }
 
+.recipe-header__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.recipe-header__row .page-title {
+  margin-bottom: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.recipe-header p {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
 .recipe-actions {
   display: flex;
   gap: 12px;
-  margin: 16px 0;
+  flex-shrink: 0;
 }
 
 .icon-btn {
