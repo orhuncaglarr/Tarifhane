@@ -286,7 +286,7 @@ main {
 
 .tree-viz__ancestor-item {
   position: relative;
-  padding-left: 46px;
+  padding-left: 80px;
 }
 
 .tree-viz__ancestor-item::before {
@@ -295,7 +295,7 @@ main {
   left: 11px;
   top: 50%;
   transform: translateY(-50%);
-  width: 35px;
+  width: 69px;
   height: 2.5px;
   background: var(--tree-line);
 }
@@ -319,14 +319,13 @@ main {
   text-align: left;
   padding: 6px 14px 6px 0;
   font: inherit;
-  color: var(--muted);
+  color: color-mix(in srgb, var(--text) 32%, var(--muted));
   font-size: 0.88rem;
-  opacity: 0.75;
+  font-weight: 500;
 }
 
 .tree-viz__ancestor:hover {
   color: var(--accent);
-  opacity: 1;
 }
 
 .tree-viz__ancestor-label {
