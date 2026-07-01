@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import CategoryGrid from "@/components/CategoryGrid";
 import RecipeGrid from "@/components/RecipeGrid";
+import SearchBar from "@/components/SearchBar";
 import { api } from "@/lib/api";
 
 export const metadata: Metadata = {
@@ -21,8 +22,10 @@ export default async function SearchPage({
   if (!query) {
     return (
       <main className="container">
-        <h1 className="page-title">Arama</h1>
-        <p className="empty-state">Aramak için üstteki kutuya bir şeyler yazın.</p>
+        <div className="home-search">
+          <h1 className="page-title">Arama</h1>
+          <SearchBar />
+        </div>
       </main>
     );
   }
@@ -32,7 +35,10 @@ export default async function SearchPage({
 
   return (
     <main className="container">
-      <h1 className="page-title">&ldquo;{query}&rdquo; için sonuçlar</h1>
+      <div className="home-search">
+        <h1 className="page-title">&ldquo;{query}&rdquo; için sonuçlar</h1>
+        <SearchBar initialQuery={query} />
+      </div>
 
       {!hasResults && <p className="empty-state">Sonuç bulunamadı.</p>}
 

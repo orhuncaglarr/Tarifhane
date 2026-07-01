@@ -1,5 +1,6 @@
 import { api } from "@/lib/api";
 import CategoryTreeBrowse from "@/components/CategoryTreeBrowse";
+import SearchBar from "@/components/SearchBar";
 
 export const revalidate = 60;
 
@@ -13,7 +14,10 @@ export default async function HomePage({
 
   return (
     <main className="container container--wide">
-      <h1 className="page-title">Tarifhane</h1>
+      <div className="home-search">
+        <h1 className="sr-only">Tarifhane</h1>
+        <SearchBar />
+      </div>
       <CategoryTreeBrowse tree={tree} initialSlug={cat} />
     </main>
   );

@@ -129,6 +129,28 @@ h1, h2, h3 {
   background: var(--accent-dark);
 }
 
+.home-search {
+  margin-bottom: 24px;
+}
+
+.home-search .search-bar {
+  flex: 1;
+  max-width: none;
+  width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Layout sections */
 main {
   flex: 1;

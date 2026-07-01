@@ -1,5 +1,4 @@
 import Link from "next/link";
-import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -8,7 +7,6 @@ export default function Header() {
         <Link href="/" className="site-logo">
           Tarifhane
         </Link>
-        <SearchBar />
         <nav className="site-nav">
           <Link href="/tarif/yeni">Tarif Ekle</Link>
           <Link href="/profil" className="avatar-circle" aria-label="Profilim">
