@@ -277,7 +277,7 @@ main {
 .tree-viz__ancestor-list::before {
   content: "";
   position: absolute;
-  left: 11px;
+  left: 0;
   top: 0;
   bottom: 0;
   width: 2.5px;
@@ -286,24 +286,17 @@ main {
 
 .tree-viz__ancestor-item {
   position: relative;
-  padding-left: 80px;
+  padding-left: 0;
 }
 
 .tree-viz__ancestor-item::before {
-  content: "";
-  position: absolute;
-  left: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 69px;
-  height: 2.5px;
-  background: var(--tree-line);
+  display: none;
 }
 
 .tree-viz__ancestor-item--last::after {
   content: "";
   position: absolute;
-  left: 10px;
+  left: -1px;
   top: calc(50% + 2px);
   bottom: 0;
   width: 4px;
@@ -385,7 +378,7 @@ main {
 
 .tree-viz__item {
   position: relative;
-  padding-left: 46px;
+  padding-left: 80px;
 }
 
 .tree-viz__item::before {
@@ -394,7 +387,7 @@ main {
   left: 11px;
   top: 50%;
   transform: translateY(-50%);
-  width: 35px;
+  width: 69px;
   height: 2.5px;
   background: var(--tree-line);
 }
