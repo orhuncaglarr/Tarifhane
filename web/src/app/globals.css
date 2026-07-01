@@ -675,6 +675,51 @@ main {
   margin-top: 28px;
 }
 
+.recipe-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.recipe-section__head h2 {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.unit-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.unit-toggle__btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.unit-toggle__btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.unit-toggle__btn:hover:not(.active) {
+  color: var(--accent);
+}
+
 .recipe-section h2 {
   font-family: var(--font-display);
   font-size: 1.35rem;

@@ -5,6 +5,7 @@ import type { CategoryNode } from "@tarifhane/shared";
 import { api, ApiError } from "@/lib/api";
 import LikeButton from "@/components/LikeButton";
 import FavoriteButton from "@/components/FavoriteButton";
+import IngredientList from "@/components/IngredientList";
 import AdSlot from "@/components/AdSlot";
 import { getYoutubeEmbedUrl } from "@/lib/youtube";
 
@@ -74,21 +75,7 @@ export default async function RecipePage({
         <FavoriteButton recipeId={recipe.id} initialFavorited={recipe.is_favorited_by_me} />
       </div>
 
-      {recipe.ingredients.length > 0 && (
-        <section className="recipe-section">
-          <h2>Malzemeler</h2>
-          <ul>
-            {recipe.ingredients.map((ingredient, i) => (
-              <li key={i}>
-                {[ingredient.amount, ingredient.unit, ingredient.name]
-                  .filter(Boolean)
-                  .join(" ")}
-                {ingredient.note ? ` (${ingredient.note})` : ""}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      {recipe.ingredients.length > 0 && <IngredientList ingredients={recipe.ingredients} />}
 
       {recipe.instructions.length > 0 && (
         <section className="recipe-section">
