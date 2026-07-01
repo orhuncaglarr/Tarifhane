@@ -140,41 +140,39 @@ export default function CategoryTreeBrowse({
         <div className="tree-viz">
           {focusNode ? (
             <div className="tree-viz__focus-branch">
-              {focusPath.length > 0 && (
-                <div className="tree-viz__ancestors">
-                  <button type="button" className="tree-viz__ancestor-root" onClick={() => focusTo([])}>
-                    Tümü
-                  </button>
-                  {ancestors.length > 0 && (
-                    <ul className="tree-viz__ancestor-list">
-                      {ancestors.map((node, index) => (
-                        <li
-                          key={node.id}
-                          className={`tree-viz__ancestor-item${
-                            index === ancestors.length - 1 ? " tree-viz__ancestor-item--last" : ""
-                          }`}
+              <button type="button" className="tree-viz__ancestor-root" onClick={() => focusTo([])}>
+                Tümü
+              </button>
+              <div className="tree-viz__spine">
+                {ancestors.length > 0 && (
+                  <ul className="tree-viz__ancestor-list">
+                    {ancestors.map((node, index) => (
+                      <li
+                        key={node.id}
+                        className={`tree-viz__ancestor-item${
+                          index === ancestors.length - 1 ? " tree-viz__ancestor-item--last" : ""
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          className="tree-viz__ancestor"
+                          onClick={() => focusTo(focusPath.slice(0, index + 1))}
+                          title={node.name}
                         >
-                          <button
-                            type="button"
-                            className="tree-viz__ancestor"
-                            onClick={() => focusTo(focusPath.slice(0, index + 1))}
-                            title={node.name}
-                          >
-                            <span className="tree-viz__ancestor-label">{node.name}</span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )}
+                          <span className="tree-viz__ancestor-label">{node.name}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
-              <div className="tree-viz__focus-block">
-                <div className="tree-viz__focus-node" aria-current="true">
-                  <span className="tree-viz__focus-dot" aria-hidden="true" />
-                  <span className="tree-viz__focus-label">{focusNode.name}</span>
+                <div className="tree-viz__focus-block">
+                  <div className="tree-viz__focus-node" aria-current="true">
+                    <span className="tree-viz__focus-dot" aria-hidden="true" />
+                    <span className="tree-viz__focus-label">{focusNode.name}</span>
+                  </div>
+                  <TreeBranchList nodes={branchNodes} onFocus={focusOn} />
                 </div>
-                <TreeBranchList nodes={branchNodes} onFocus={focusOn} />
               </div>
             </div>
           ) : (

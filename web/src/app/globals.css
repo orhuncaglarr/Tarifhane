@@ -275,22 +275,8 @@ main {
 }
 
 /* Minimized ancestor chain above the focused node */
-.tree-viz__ancestors {
-  margin-bottom: 4px;
-}
-
 .tree-viz__focus-branch {
   position: relative;
-}
-
-.tree-viz__focus-branch::before {
-  content: "";
-  position: absolute;
-  left: 11px;
-  top: 0;
-  bottom: 0;
-  width: 2.5px;
-  background: var(--tree-line);
 }
 
 .tree-viz__ancestor-root {
@@ -299,7 +285,7 @@ main {
   background: transparent;
   cursor: pointer;
   text-align: left;
-  padding: 6px 0;
+  padding: 6px 0 10px;
   font: inherit;
   color: color-mix(in srgb, var(--text) 42%, var(--muted));
   font-size: 0.95rem;
@@ -308,6 +294,20 @@ main {
 
 .tree-viz__ancestor-root:hover {
   color: var(--accent);
+}
+
+.tree-viz__spine {
+  position: relative;
+}
+
+.tree-viz__spine::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2.5px;
+  background: var(--tree-line);
 }
 
 .tree-viz__ancestor-list {
