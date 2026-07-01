@@ -115,18 +115,27 @@ export default function CategoryTreeBrowse({
               <button type="button" className="tree-viz__ancestor-root" onClick={() => focusTo([])}>
                 Tümü
               </button>
-              {ancestors.map((node, index) => (
-                <button
-                  key={node.id}
-                  type="button"
-                  className="tree-viz__ancestor"
-                  onClick={() => focusTo(focusPath.slice(0, index + 1))}
-                  title={node.name}
-                >
-                  <span className="tree-viz__ancestor-line" aria-hidden="true" />
-                  <span className="tree-viz__ancestor-label">{node.name}</span>
-                </button>
-              ))}
+              {ancestors.length > 0 && (
+                <ul className="tree-viz__ancestor-list">
+                  {ancestors.map((node, index) => (
+                    <li
+                      key={node.id}
+                      className={`tree-viz__ancestor-item${
+                        index === ancestors.length - 1 ? " tree-viz__ancestor-item--last" : ""
+                      }`}
+                    >
+                      <button
+                        type="button"
+                        className="tree-viz__ancestor"
+                        onClick={() => focusTo(focusPath.slice(0, index + 1))}
+                        title={node.name}
+                      >
+                        <span className="tree-viz__ancestor-label">{node.name}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 
